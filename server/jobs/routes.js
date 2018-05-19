@@ -1,7 +1,10 @@
 const express = require('express');
 const routes = express.Router();
 
+const model = require('./model');
+
 routes.get('/', (req, res) => {
+  /*
   let payload = {
     jobs: [
       {
@@ -13,13 +16,18 @@ routes.get('/', (req, res) => {
         minRating: 2,
         reward: 8,
         jobId: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        contractDuration: 86400,
+        contractDuration: 86400
       }
     ]
   };
-
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(payload));
+  */
+  model.getJobs().then(jobs => {
+    let payload = {
+      jobs
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(payload));
+  })
 });
 
 routes.get('/:id', (req, res) => {
@@ -33,12 +41,22 @@ routes.get('/:id', (req, res) => {
       minRating: 2,
       reward: 8,
       jobId: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-      contractDuration: 86400,
+      contractDuration: 86400
     }
   };
 
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(payload));
+});
+
+routes.post('/', (req, res) => {
+  model.createJob(req.body.prompt).then(() => {
+    let payload = {
+      error: false
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(payload));
+  });  
 });
 
 module.exports = routes;

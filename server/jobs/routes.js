@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = express.Router();
+const sendJson = require('../util').sendJson;
 
 const model = require('./model');
 const sources = require('../sources');
@@ -9,8 +10,7 @@ routes.get('/', (req, res) => {
     let payload = {
       jobs
     };
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(payload));
+    sendJson(res, payload);
   });
 });
 
@@ -21,11 +21,10 @@ routes.get('/:id', async (req, res) => {
 
   let payload = {
     job,
-    jobSources,
+    sources: jobSources,
     contract
   };
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(payload));
+  sendJson(res, payload);
 });
 
 routes.post('/', (req, res) => {
@@ -33,8 +32,9 @@ routes.post('/', (req, res) => {
     let payload = {
       error: false
     };
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(payload));
+    sendJson(res, payload);
+  }).catch(error => {
+    sendJson(res, {error});
   });
 });
 

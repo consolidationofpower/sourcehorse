@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require('./db');
 
 // Modules
 const jobs = require('./jobs');
@@ -15,5 +16,5 @@ app.use('/users', users.routes);
 app.use('/sources', sources.routes);
 
 app.listen(5000, () => {
-  console.log('Example app listening on port 5000!');
+  console.log('Sourcehorse listening on port 5000!');
 });

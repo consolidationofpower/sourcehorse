@@ -1,27 +1,22 @@
-const users = [];
-let userCounter = 0;
+const db = require('../db');
 
-function incrementCounter() {
-  userCounter += 1;
-}
+const USERS_TABLE = 'users';
 
 function create(params) {
   let user = {
     name: params.name,
-    rating: 0,
-    jobsCompleted: 0,
     balance: 0,
-    userId: String(userCounter)
+    rating: 0,
+    job_completed: 0
   };
-  incrementCounter();
-  users.push(user);
-  return Promise.resolve();
+  return db(USERS_TABLE).insert(user);
 }
 
 function getById(id) {
-  console.log('users', users);
-  return Promise.resolve(users.find(user => user.userId === id));
+  return db.select().from(USERS_TABLE).where({id})
 }
 
-exports.create = create;
-exports.getById = getById;
+module.exports = {
+  create,
+  getById
+}

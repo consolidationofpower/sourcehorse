@@ -1,10 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+// Modules
+const jobs = require('./jobs');
+const users = require('./users');
+
 const app = express();
 
-const jobs = require('./jobs');
+app.use(bodyParser());
 
 app.use('/jobs', jobs.routes);
+app.use('/users', users.routes);
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+app.listen(5000, () => {
+  console.log('Example app listening on port 5000!');
 });

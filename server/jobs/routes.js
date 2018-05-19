@@ -1,44 +1,36 @@
 const express = require('express');
 const routes = express.Router();
 
-routes.get('/', (req, res) => {
-  let payload = {
-    jobs: [
-      {
-        prompt: 'Discuss the arrival of the first polynesians in New Zealand',
-        owner: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        createdAt: '2018-05-19',
-        duration: 86400,
-        numSources: 8,
-        minRating: 2,
-        reward: 8,
-        jobId: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-        contractDuration: 86400,
-      }
-    ]
-  };
+const model = require('./model');
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(payload));
+routes.get('/', (req, res) => {
+  model.getJobs().then(jobs => {
+    let payload = {
+      jobs
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(payload));
+  });
 });
 
 routes.get('/:id', (req, res) => {
-  let payload = {
-    job: {
-      prompt: 'Discuss the arrival of the first polynesians in New Zealand',
-      owner: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-      createdAt: '2018-05-19',
-      duration: 86400,
-      numSources: 8,
-      minRating: 2,
-      reward: 8,
-      jobId: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-      contractDuration: 86400,
-    }
-  };
+  model.getJob(req.params.id).then(job => {
+    let payload = {
+      job
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(payload));
+  });
+});
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(payload));
+routes.post('/', (req, res) => {
+  model.createJob(req.body).then(() => {
+    let payload = {
+      error: false
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(payload));
+  });
 });
 
 module.exports = routes;

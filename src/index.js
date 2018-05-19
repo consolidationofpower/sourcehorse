@@ -1,14 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { ThemeProvider } from "styled-components";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 import "./index.css.js";
 
+const theme = {
+  primary: {
+    main: '#442254',
+    light: '#714b81'
+  },
+  secondary: {
+    main: '#FFFFFF',
+    dark: '#CCCCCC'
+  },
+  spacing: '1rem'
+};
+
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>, 
-  document.getElementById('root')
+  <ThemeProvider theme={theme}>
+    <Router>
+      <App />
+    </Router>
+  </ThemeProvider>,
+  document.getElementById("root")
 );
 registerServiceWorker();

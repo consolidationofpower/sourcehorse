@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import { Switch, Route } from "react-router";
 import routes from "./routes";
 import Header from "./components/Header";
 import Page from "./components/Page";
 
-export default () =>
+export default () => (
   <Page>
     <Header />
     <Switch>
@@ -12,3 +12,4 @@ export default () =>
       <Route exact path="/listings" component={routes.Listings} />
     </Switch>
   </Page>
+);

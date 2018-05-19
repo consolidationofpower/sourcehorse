@@ -1,13 +1,13 @@
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 import { Flex, FixedAspectRatio } from "../elements";
 
 const ProfileWrapper = styled.div`
   padding: ${props => props.theme.spacing};
-  
-  background-color: ${props => props.theme.primary.light};
+
+  background: ${props => props.theme.gradient};
   color: ${props => props.theme.secondary.main};
-  
+
   font-size: 1.4rem;
 
   h3 {
@@ -28,27 +28,27 @@ const ProfilePicture = styled.div`
   height: 100%;
   border-radius: 100%;
   background-color: ${props => props.theme.secondary.dark};
+  background-image: url(assets/face.jpg);
+  background-size: cover;
 `;
 
-const Star = ({ active }) =>
-  <span className="fa fa-star small" style={{ color: active ? "orange" : "initial" }} />;
+const Star = ({ active }) => (
+  <span
+    className="fa fa-star small"
+    style={{ color: active ? "orange" : "initial" }}
+  />
+);
 
-const Stars = ({ rating }) => 
+const Stars = ({ rating }) => (
   <Flex row justify="space-between">
     {[1, 2, 3, 4, 5].map(i => <Star key={i} active={i <= rating} />)}
   </Flex>
+);
 
-const user = {
-  name: 'Johnny Anyman',
-  school: 'University of Auckland',
-  balance: 20,
-  rating: 4
-}
-
-export default () => (
+export default ({ user }) => (
   <ProfileWrapper>
     <Flex row>
-      <Flex flex={3} justify="space-between" style={{ paddingRight: '1rem' }}>
+      <Flex flex={3} justify="space-between" style={{ paddingRight: "1rem" }}>
         <FixedAspectRatio>
           <ProfilePicture />
         </FixedAspectRatio>

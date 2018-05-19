@@ -8,13 +8,21 @@ const P = styled.p`
   font-size: 1.6rem;
   text-align: center;
   color: ${props => props.theme.secondary.dark};
-`
+`;
 
-export default () =>
+const user = {
+  name: "Johnny Anyman",
+  school: "University of Auckland",
+  balance: 20,
+  rating: 4
+};
+
+export default () => (
   <React.Fragment>
-    <Profile />
+    <Profile user={user} />
 
     <P>You don't have any jobs</P>
 
     <AddJobButton />
   </React.Fragment>
+);

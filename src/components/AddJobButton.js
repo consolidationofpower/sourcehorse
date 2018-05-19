@@ -13,11 +13,11 @@ const Button = styled.button`
   height: 4.5rem;
   width: 4.5rem;
 
-  background-color: ${props => props.theme.primary.light};
+  background: ${props => props.theme.gradient};
   border-radius: 100%;
   border: none;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.50);
-`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+`;
 
 const CrossArm = styled.div`
   position: absolute;
@@ -26,17 +26,18 @@ const CrossArm = styled.div`
 
   background-color: ${props => props.theme.secondary.main};
 
-  transform: rotate(${props => props.rotate ? 90 : 0}deg);
-`
+  transform: rotate(${props => (props.rotate ? 90 : 0)}deg);
+`;
 
-const Cross = () => 
+const Cross = () => (
   <React.Fragment>
     <CrossArm />
     <CrossArm rotate />
-  </React.Fragment>;
+  </React.Fragment>
+);
 
 export default () => (
   <Button>
     <Cross />
   </Button>
-)
+);

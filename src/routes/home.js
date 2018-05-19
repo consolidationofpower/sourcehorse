@@ -1,4 +1,9 @@
 import React from "react";
 import Profile from "../components/Profile";
+import AddJobButton from "../components/AddJobButton";
 
-export default () => <Profile />;
+export default () =>
+  <React.Fragment>
+    <Profile />
+    <AddJobButton />
+  </React.Fragment>

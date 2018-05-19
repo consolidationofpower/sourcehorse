@@ -13,12 +13,13 @@ exports.down = function(knex, Promise) {
 function createJobsTable(knex) {
   let createQuery = `CREATE TABLE jobs(
     id uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4 (),
-    prompt TEXT,
+    title TEXT,
+    description TEXT,
     created_at TIMESTAMP DEFAULT current_timestamp,
     owner_id uuid NOT NULL references users(id),
     duration interval NOT NULL DEFAULT '3 days',
     min_sources smallint NOT NULL DEFAULT 3,
-    min_rating smallint NOT NULL DEFAULT 0,
+    min_rating real NOT NULL DEFAULT 0,
     reward real NOT NULL DEFAULT 1,
     contract_duration interval NOT NULL DEFAULT '3 hours'
   )`;
@@ -28,7 +29,10 @@ function createJobsTable(knex) {
 function createUsersTable(knex) {
   let createQuery = `CREATE TABLE users(
     id uuid PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4 (),
-    name TEXT
+    name TEXT,
+    balance real NOT NULL DEFAULT 0,
+    rating real NOT NULL DEFAULT 0,
+    job_completed smallint NOT NULL DEFAULT 0
   )`;
   return knex.raw(createQuery);
 }

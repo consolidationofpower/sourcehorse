@@ -5,11 +5,12 @@ const JOBS_TABLE = 'jobs'
 
 function createJob (params) {
   let job = {
-    prompt: params.prompt,
-    owner_id: params.userId,
+    title: params.title,
+    description: params.description || '',
+    owner_id: params.user_id,
     duration: util.toInterval(params.duration) || '3 days',
-    min_sources: params.minSources || 3,
-    min_rating: params.minRating || 0,
+    min_sources: params.min_sources || 3,
+    min_rating: params.min_rating || 0,
     reward: params.reward || 1,
     contract_duration: util.toInterval(params.duration) || '3 hours'
   };

@@ -2,7 +2,7 @@ const sources = [];
 
 function create(params) {
   let source = {
-    jobId: params.jobId,
+    job_id: params.job_id,
     link: params.link,
     citation: params.citation
   };
@@ -10,8 +10,8 @@ function create(params) {
   return Promise.resolve();
 }
 
-function get(jobId) {
-  return Promise.resolve(sources.filter(source => source.jobId === jobId));
+function get(job_id) {
+  return Promise.resolve(sources.filter(source => source.job_id === job_id));
 }
 
 exports.create = create;

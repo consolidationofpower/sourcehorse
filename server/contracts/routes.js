@@ -3,32 +3,27 @@ const routes = express.Router();
 const sendJson = require('../util').sendJson;
 
 const model = require('./model');
-const sources = require('../sources');
 
 routes.get('/', (req, res) => {
-  model.getJobs(req.query.user_id).then(jobs => {
+  model.getContractForUser(req.query.user_id).then(contract => {
     let payload = {
-      jobs
+      contract
     };
     sendJson(res, payload);
   });
 });
 
 routes.get('/:id', async (req, res) => {
-  let job = await model.getJob(req.params.id);
-  let jobSources = await sources.model.get(job.id);
-  let contract = {};
-
-  let payload = {
-    job,
-    sources: jobSources,
-    contract
-  };
-  sendJson(res, payload);
+  model.getContractForJob(id).then(contract => {
+    let payload = {
+      contract
+    };
+    sendJson(res, payload);
+  });
 });
 
 routes.post('/', (req, res) => {
-  model.createJob(req.body).then(() => {
+  model.createContract(req.params).then(() => {
     let payload = {
       error: false
     };

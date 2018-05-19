@@ -1,5 +1,7 @@
+const users = require('../users');
+
 const jobs = [{
-  jobId: '1',
+  jobId: '0',
   prompt: 'Discuss the arrival of the first polynesians in New Zealand',
   ownerId: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
   createdAt: '2018-05-19',
@@ -10,7 +12,7 @@ const jobs = [{
   contractDuration: 86400
 }];
 
-let count = 1000;
+let count = 1;
 
 function createJob (params) {
   return new Promise((resolve, reject) => {
@@ -30,8 +32,14 @@ function createJob (params) {
   })
 }
 
-function getJobs () {
-  return Promise.resolve(jobs);
+function getJobs (userId) {
+  if (userId === undefined) {
+    return Promise.resolve(jobs); // default to all jobs
+  } else {
+    return users.model.getById(userId).then(user => {
+      return jobs.filter(job => job.minRating <= user.rating);
+    });
+  }
 }
 
 function getJob (jobId) {

@@ -4,7 +4,7 @@ const routes = express.Router();
 const model = require('./model');
 
 routes.get('/', (req, res) => {
-  model.getJobs().then(jobs => {
+  model.getJobs(req.query.userId).then(jobs => {
     let payload = {
       jobs
     };

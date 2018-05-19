@@ -12,10 +12,10 @@ async function createContract (params) {
   let contract = {
     job_id: job.id,
     owner_id: user.id,
-    createdAt: Date.now(),
+    created_at: Date.now(),
     duration: job.contract_duration,
-    completedAt: null,
-    failedAt: null
+    completed_at: null,
+    failed_at: null
   };
 
   return db(CONTRACTS_TABLE).insert(contract);

@@ -1,17 +1,20 @@
-const sources = [];
+const db = require('../db')
+const util = require('../util')
 
-function create(params) {
+const SOURCES_TABLE = 'sources'
+
+function create (params) {
   let source = {
     job_id: params.job_id,
     link: params.link,
     citation: params.citation
   };
-  sources.push(source);
-  return Promise.resolve();
+
+  return db(SOURCES_TABLE).insert(source)
 }
 
-function get(job_id) {
-  return Promise.resolve(sources.filter(source => source.job_id === job_id));
+function get (job_id) {
+  return db.select().from(SOURCES_TABLE).where({job_id: job_id});
 }
 
 exports.create = create;

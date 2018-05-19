@@ -9,9 +9,9 @@ function createJob (params) {
     description: params.description || '',
     owner_id: params.user_id,
     duration: util.toInterval(params.duration) || '3 days',
-    min_sources: params.min_sources || 3,
-    min_rating: params.min_rating || 0,
-    reward: params.reward || 1,
+    min_sources: Number(params.min_sources) || 3,
+    min_rating: Number(params.min_rating) || 0,
+    reward: Number(params.reward) || 1,
     contract_duration: util.toInterval(params.duration) || '3 hours'
   };
 

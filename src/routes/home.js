@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Profile from "../components/Profile";
+import JobForm from "../components/JobForm";
+import Modal from "../components/Modal";
 import AddJobButton from "../components/AddJobButton";
 
 const P = styled.p`
@@ -23,6 +25,12 @@ export default () => (
 
     <P>You don't have any jobs</P>
 
-    <AddJobButton />
+    <Modal>
+      <Modal.Toggle>
+        {openModal => <AddJobButton onClick={openModal} />}
+      </Modal.Toggle>
+
+      <Modal.Body>{() => <JobForm />}</Modal.Body>
+    </Modal>
   </React.Fragment>
 );

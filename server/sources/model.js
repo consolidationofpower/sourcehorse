@@ -10,12 +10,14 @@ function create (params) {
     citation: params.citation
   };
 
-  return db(SOURCES_TABLE).insert(source)
+  return db(SOURCES_TABLE).insert(source).returning("*");
 }
 
-function get (job_id) {
+function getForJob (job_id) {
   return db.select().from(SOURCES_TABLE).where({job_id: job_id});
 }
 
-exports.create = create;
-exports.get = get;
+module.exports = {
+  create,
+  getForJob
+}

@@ -9,14 +9,19 @@ function create(params) {
     rating: 0,
     job_completed: 0
   };
-  return db(USERS_TABLE).insert(user);
+  return db(USERS_TABLE).insert(user).returning("*");
 }
 
-function getById(id) {
-  return db.select().from(USERS_TABLE).where({id})
+function get(id) {
+  return db.first().from(USERS_TABLE).where({id});
+}
+
+function getAll(id) {
+  return db.select().from(USERS_TABLE);
 }
 
 module.exports = {
   create,
-  getById
+  get,
+  getAll
 }

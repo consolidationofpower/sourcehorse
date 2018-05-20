@@ -4,17 +4,8 @@ const sendJson = require('../util').sendJson;
 
 const model = require('./model');
 
-routes.get('/', (req, res) => {
-  model.getContractForUser(req.query.user_id).then(contract => {
-    let payload = {
-      contract
-    };
-    sendJson(res, payload);
-  });
-});
-
-routes.get('/:id', async (req, res) => {
-  model.getContractForJob(id).then(contract => {
+routes.get('/:user_id', async (req, res) => {
+  model.getForUser(req.params.user_id).then(contract => {
     let payload = {
       contract
     };
@@ -23,8 +14,9 @@ routes.get('/:id', async (req, res) => {
 });
 
 routes.post('/', (req, res) => {
-  model.createContract(req.params).then(() => {
+  model.create(req.body).then((contract) => {
     let payload = {
+      contract,
       error: false
     };
     sendJson(res, payload);

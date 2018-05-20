@@ -1,27 +1,29 @@
 const express = require('express');
 const model = require('./model');
+const sendJson = require('../util').sendJson;
 
 const routes = express.Router();
 
-routes.post('/', (req, res) => {
-  model.create(req.body).then(() => {
-    let payload = {
-      error: false
-    };
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(payload));
-  });
-});
-
-routes.get('/:id', (req, res) => {
-  model.get(req.params.id).then((sources) => {
+routes.get('/:job_id', (req, res) => {
+  model.getForJob(req.params.job_id).then((sources) => {
     let payload = {
       sources
     };
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(payload));
+    sendJson(res, payload);
   });
 })
+
+routes.post('/', (req, res) => {
+  model.create(req.body).then((source) => {
+    let payload = {
+      source,
+      error: false
+    };
+    sendJson(res, payload);
+  }).catch(error => {
+    sendJson(res, {error});
+  });
+});
+
 
 module.exports = routes;

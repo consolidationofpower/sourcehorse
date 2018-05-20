@@ -4,9 +4,10 @@ const sendJson = require('../util').sendJson;
 
 const model = require('./model');
 const sources = require('../sources');
+const contracts = require('../contracts');
 
-routes.get('/', (req, res) => {
-  model.getJobs(req.query.user_id).then(jobs => {
+routes.get('/answer/:user_id', (req, res) => {
+  model.getAllAnswerForUser(req.params.user_id).then(jobs => {
     let payload = {
       jobs
     };
@@ -14,22 +15,35 @@ routes.get('/', (req, res) => {
   });
 });
 
-routes.get('/:id', async (req, res) => {
-  let job = await model.getJob(req.params.id);
-  let jobSources = await sources.model.get(job.id);
-  let contract = {};
+routes.get('/answer', (req, res) => {
+  model.getAll().then(jobs => {
+    let payload = {
+      jobs
+    };
+    sendJson(res, payload);
+  });
+});
 
-  let payload = {
-    job,
-    sources: jobSources,
-    contract
-  };
+routes.get('/ask/:user_id', async (req, res) => {
+  let payload = [];
+  let jobs = await model.getAllAskForUser(req.params.user_id);
+  for (let i = 0; i < jobs.length; i++) {
+    let job = jobs[i];
+    let jobSources = await sources.model.getForJob(job.id);
+    let contract = await contracts.model.getForJob(job.id);
+    payload.push({
+      job,
+      sources: jobSources,
+      contract
+    })
+  }
   sendJson(res, payload);
 });
 
 routes.post('/', (req, res) => {
-  model.createJob(req.body).then(() => {
+  model.create(req.body).then((job) => {
     let payload = {
+      job,
       error: false
     };
     sendJson(res, payload);

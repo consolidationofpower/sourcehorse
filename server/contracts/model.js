@@ -6,29 +6,30 @@ const jobs = require('../jobs');
 
 const CONTRACTS_TABLE = 'contracts'
 
-async function createContract (params) {
-  let user = await users.model.getById(params.user_id);
-  let job = await jobs.model.getJob(params.job_id);
+async function create (params) {
+  let user = await users.model.get(params.owner_id);
+  let job = await jobs.model.get(params.job_id);
+  console.log(user);
+  console.log(job);
   let contract = {
     job_id: job.id,
     owner_id: user.id,
-    created_at: Date.now(),
-    duration: job.contract_duration,
-    completed_at: null,
-    failed_at: null
+    duration: job.contract_duration
   };
 
-  return db(CONTRACTS_TABLE).insert(contract);
+  return db(CONTRACTS_TABLE).insert(contract).returning("*");
 }
 
-function getContractForUser (id) {
-  return db.select().from(CONTRACTS_TABLE).where({owner_id: id});
+function getForUser (user_id) {
+  return db.first().from(CONTRACTS_TABLE).where({owner_id: user_id});
 }
 
-function getContractForJob (id) {
-  return db.select().from(CONTRACTS_TABLE).where({job_id: id});
+function getForJob (job_id) {
+  return db.first().from(CONTRACTS_TABLE).where({job_id: job_id});
 }
 
-exports.createContract = createContract;
-exports.getContractForUser = getContractForUser;
-exports.getContractForJob = getContractForJob;
+module.exports = {
+  create,
+  getForUser,
+  getForJob
+}

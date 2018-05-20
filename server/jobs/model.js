@@ -1,13 +1,15 @@
 const db = require('../db')
 const util = require('../util')
 
+const users = require('../users');
+
 const JOBS_TABLE = 'jobs'
 
-function createJob (params) {
+function create (params) {
   let job = {
     title: params.title,
     description: params.description || '',
-    owner_id: params.user_id,
+    owner_id: params.owner_id,
     duration: util.toInterval(params.duration) || '3 days',
     min_sources: Number(params.min_sources) || 3,
     min_rating: Number(params.min_rating) || 0,
@@ -15,17 +17,31 @@ function createJob (params) {
     contract_duration: util.toInterval(params.duration) || '3 hours'
   };
 
-  return db(JOBS_TABLE).insert(job)
+  return db(JOBS_TABLE).insert(job).returning("*");
 }
 
-function getJobs () {
-  return db.select().from(JOBS_TABLE)
+function get (id) {
+  return db.first().from(JOBS_TABLE).where({id});
 }
 
-function getJob (id) {
-  return db.select().from(JOBS_TABLE).where({id})
+function getAll () {
+  return db.select().from(JOBS_TABLE);
 }
 
-exports.createJob = createJob;
-exports.getJobs = getJobs;
-exports.getJob = getJob;
+async function getAllAskForUser (user_id) {
+  let user = await users.model.get(user_id);
+  return db.select().from(JOBS_TABLE).where({owner_id: user_id});
+}
+
+async function getAllAnswerForUser (user_id) {
+  let user = await users.model.get(user_id);
+  return db.select().from(JOBS_TABLE).where('min_rating', '<=', user.rating || 5);
+}
+
+module.exports = {
+  create,
+  get,
+  getAll,
+  getAllAskForUser,
+  getAllAnswerForUser
+}

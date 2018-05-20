@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Profile from "../components/Profile";
-import AddJobButton from "../components/AddJobButton";
+import JobForm from "../components/JobForm";
 
 const P = styled.p`
   margin-top: 1rem;
@@ -23,6 +23,6 @@ export default () => (
 
     <P>You don't have any jobs</P>
 
-    <AddJobButton />
+    <JobForm />
   </React.Fragment>
 );

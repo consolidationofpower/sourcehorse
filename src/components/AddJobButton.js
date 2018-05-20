@@ -36,8 +36,8 @@ const Cross = () => (
   </React.Fragment>
 );
 
-export default () => (
-  <Button>
+export default (props) => (
+  <Button {...props}>
     <Cross />
   </Button>
 );

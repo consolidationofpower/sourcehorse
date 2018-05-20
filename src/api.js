@@ -54,8 +54,6 @@ function request(...args) {
 }
 
 function logResponse(r) {
-  if (!IS_PRODUCTION) {
-    console.log(`${r.url}: ${r.status} ${r.statusText}`);
-  }
+  console.log(`${r.url}: ${r.status} ${r.statusText}`);
   return r;
 }

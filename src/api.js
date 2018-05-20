@@ -1,6 +1,11 @@
+const IS_PRODUCTION = false;
+
 export default {
+  /**
+   * @param {string} userId 
+   */
   getJobs() {
-    return get("/jobs");
+    return get(`/jobs/answer`);
   },
 
   /**
@@ -34,11 +39,11 @@ export default {
 }
 
 function get(endpoint) {
-  return request(endpoint);
+  return request(`http://localhost:5000${endpoint}`);
 }
 
 function post(path, data) {
-  return request(path, {
+  return request(`http://localhost:5000${path}`, {
     body: JSON.stringify(data),
     headers: {
       "content-type": "application/json"

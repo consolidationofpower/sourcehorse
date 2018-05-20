@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('./db');
 
 // Modules
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cors());
 
 app.use('/jobs', jobs.routes);
 app.use('/users', users.routes);

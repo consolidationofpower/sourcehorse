@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Flex = styled.div`
   display: flex;
@@ -34,3 +34,26 @@ export const FixedAspectRatio = ({ children, w=1, h=1 }) => {
     </Wrapper>
   );
 }
+
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div`
+  height: 2rem;
+  width: 2rem;
+
+  border-top: 3px solid currentColor;
+  border-left: 3px solid currentColor;
+  border-bottom: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-radius: 100%;
+
+  animation: ${spin} 1s infinite;
+`

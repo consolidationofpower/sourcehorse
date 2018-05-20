@@ -1,5 +1,3 @@
-const IS_PRODUCTION = false;
-
 export default {
   /**
    * @param {string} userId 
@@ -35,6 +33,12 @@ export default {
    */
   submitSources(jobID, sources) {
     return post(`/jobs/${jobID}/sources`, sources);
+  },
+
+  states: {
+    LOADING: Symbol("LOADING"),
+    LOADED: Symbol("LOADED"),
+    ERROR: Symbol("ERROR")
   }
 }
 

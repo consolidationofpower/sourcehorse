@@ -1,6 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import api from "../api";
+import { Spinner } from "../elements";
+
+const FormSpinner = Spinner.extend`
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: calc(50% - 1rem);
+  transform: translate(-50%, -50%);
+`
 
 const InputGroup = styled.div`
   width: 100%;
@@ -57,19 +65,27 @@ const SubmitButton = styled.input`
   text-align: center;
   border: none;
   background: ${props => props.theme.gradient};
-  color: ${props => props.theme.secondary.main};
   font-size: 1.4rem;
+  color: inherit;
 `;
 
-export default class JobForm extends React.Component {
-  state = {
-    title: "",
-    description: "",
-    reward: 0,
-    min_sources: 0
-  };
+const SubmitWrapper = styled.div`
+  color: ${props => props.theme.secondary.main};
+  position: relative;
+`;
 
-  render(isLoading) {
+const initialState = {
+  title: "19th Century Feudalism",
+  description: "Pls to help",
+  reward: 21,
+  min_sources: 3
+};
+
+export default class JobForm extends React.Component {
+  state = initialState;
+
+  render() {
+    const isLoading = this.state.loadState === api.states.LOADING;
     return (
       <form onSubmit={this.handleSubmit}>
         <InputGroup>
@@ -81,6 +97,7 @@ export default class JobForm extends React.Component {
             value={this.state.title}
             required
             onChange={this.handleInputChange}
+            disabled={isLoading}
           />
         </InputGroup>
 
@@ -94,6 +111,7 @@ export default class JobForm extends React.Component {
             required
             onChange={this.handleInputChange}
             rows={4}
+            disabled={isLoading}
           />
         </InputGroup>
 
@@ -105,6 +123,7 @@ export default class JobForm extends React.Component {
             value={this.state.min_sources}
             required
             onChange={this.handleInputChange}
+            disabled={isLoading}
           />
         </InputGroup>
 
@@ -116,14 +135,19 @@ export default class JobForm extends React.Component {
             value={this.state.reward}
             required
             onChange={this.handleInputChange}
+            disabled={isLoading}
           />
         </InputGroup>
 
-        <SubmitButton
-          type="submit"
-          value="SUBMIT JOB"
-          style={{ WebkitBorderRadius: 0 }}
-        />
+        <SubmitWrapper>
+          <SubmitButton
+            type="submit"
+            value={isLoading ? "" : "SUBMIT JOB"}
+            style={{ WebkitBorderRadius: 0 }}
+            disabled={isLoading}
+          />
+          {isLoading && <FormSpinner />}
+        </SubmitWrapper>
       </form>
     );
   }
@@ -131,11 +155,18 @@ export default class JobForm extends React.Component {
   handleSubmit = formEvent => {
     formEvent.preventDefault();
 
+    this.setState({ loadState: api.states.LOADING });
     const job = this.getJobFromState();
     api
       .submitJob(job)
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        this.setState({ loadState: api.states.LOADED });
+        console.log(res)
+        this.props.onAfterLoad(res);
+      })
+      .catch(err => {
+        this.setState({ loadState: api.states.ERROR });
+      });
   };
 
   handleInputChange = ev => {
@@ -148,6 +179,13 @@ export default class JobForm extends React.Component {
   };
 
   getJobFromState = () => {
-    return this.state;
+    const { loadState, ...job } = this.state;
+    return {
+      ...job,
+      min_rating: 0,
+      contract_duration: 3000,
+      duration: 15000,
+      owner_id: "38d9f9da-85f4-40c2-9d94-5c4e715ba1f7"
+    }
   };
 }

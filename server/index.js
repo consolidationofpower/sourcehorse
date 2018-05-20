@@ -20,6 +20,11 @@ app.use('/users', users.routes);
 app.use('/sources', sources.routes);
 app.use('/contracts', contracts.routes);
 
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now())
+  next()
+})
+
 app.listen(5000, () => {
   console.log('Sourcehorse listening on port 5000!');
 });

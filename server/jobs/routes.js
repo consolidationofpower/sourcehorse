@@ -48,6 +48,7 @@ routes.post('/', (req, res) => {
     };
     sendJson(res, payload);
   }).catch(error => {
+    res.status(500);
     sendJson(res, {error});
   });
 });

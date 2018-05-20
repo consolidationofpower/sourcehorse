@@ -21,7 +21,7 @@ export default class JobsList extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(this.getJobs);
+    window.removeEventListener("NEW_JOBS", this.getJobs);
   }
 
   getJobs = () => {

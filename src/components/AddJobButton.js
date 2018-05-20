@@ -26,13 +26,13 @@ const CrossArm = styled.div`
 
   background-color: ${props => props.theme.secondary.main};
 
-  transform: rotate(${props => (props.rotate ? 90 : 0)}deg);
+  transform: rotate(${props => (props.rotated ? 90 : 0)}deg);
 `;
 
 const Cross = () => (
   <React.Fragment>
     <CrossArm />
-    <CrossArm rotate />
+    <CrossArm rotated />
   </React.Fragment>
 );
 

@@ -10,7 +10,8 @@ const contracts = require('./contracts');
 
 const app = express();
 
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.use('/jobs', jobs.routes);
 app.use('/users', users.routes);

@@ -35,7 +35,9 @@ async function getAllAskForUser (user_id) {
 
 async function getAllAnswerForUser (user_id) {
   let user = await users.model.get(user_id);
-  return db.select().from(JOBS_TABLE).where('min_rating', '<=', user.rating || 5);
+  // this is terrible
+  let contracted = (await db.select('job_id').from('contracts')).map((job) => job.job_id);
+  return db.select("*").from(JOBS_TABLE).whereNotIn('id', contracted).andWhereNot({owner_id: user_id}).andWhere('min_rating', '<=', user.rating || 5);
 }
 
 module.exports = {

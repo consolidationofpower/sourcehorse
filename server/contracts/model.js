@@ -9,8 +9,6 @@ const CONTRACTS_TABLE = 'contracts'
 async function create (params) {
   let user = await users.model.get(params.owner_id);
   let job = await jobs.model.get(params.job_id);
-  console.log(user);
-  console.log(job);
   let contract = {
     job_id: job.id,
     owner_id: user.id,

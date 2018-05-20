@@ -67,7 +67,7 @@ export default ({ job }) => (
   <JobWrapper>
     <Flex justify="space-between" row>
       <span>{job.title}</span>
-      <span style={{ color: "#CCC" }}>${job.reward}0</span>
+      <span style={{ color: "#CCC" }}>${job.reward}</span>
     </Flex>
 
     <P>{job.description}</P>

@@ -16,6 +16,15 @@ export default class JobsList extends React.Component {
   state = {};
 
   componentDidMount() {
+    this.getJobs();
+    window.addEventListener("NEW_JOBS", this.getJobs);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(this.getJobs);
+  }
+
+  getJobs = () => {
     this.setState({ loadState: api.states.LOADING });
     api.getUserJobs(this.props.user.user_id)
       .then(jobs => {

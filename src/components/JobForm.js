@@ -163,6 +163,7 @@ export default class JobForm extends React.Component {
         this.setState({ loadState: api.states.LOADED });
         console.log(res)
         this.props.onAfterLoad(res);
+        window.dispatchEvent(new CustomEvent("NEW_JOBS"));
       })
       .catch(err => {
         this.setState({ loadState: api.states.ERROR });

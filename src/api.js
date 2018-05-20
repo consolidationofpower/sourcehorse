@@ -2,8 +2,12 @@ export default {
   /**
    * @param {string} userId 
    */
+  getUserJobs(userID) {
+    return get(`/jobs/ask/${userID}`);
+  },
+
   getJobs() {
-    return get(`/jobs/answer`);
+    return get("/jobs/answer");
   },
 
   /**

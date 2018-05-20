@@ -16,7 +16,7 @@ const Button = styled.button`
   background: ${props => props.theme.gradient};
   border-radius: 100%;
   border: none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: ${props => props.theme.shadowDark};
 `;
 
 const CrossArm = styled.div`

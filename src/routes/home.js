@@ -1,29 +1,23 @@
 import React from "react";
-import styled from "styled-components";
 import Profile from "../components/Profile";
 import JobForm from "../components/JobForm";
+import JobsList from "../components/JobsList";
 import Modal from "../components/Modal";
 import AddJobButton from "../components/AddJobButton";
-
-const P = styled.p`
-  margin-top: 1rem;
-  font-size: 1.6rem;
-  text-align: center;
-  color: ${props => props.theme.secondary.dark};
-`;
 
 const user = {
   name: "Johnny Anyman",
   school: "University of Auckland",
   balance: 20,
-  rating: 4
+  rating: 4,
+  user_id: "db0010b5-8b41-4ebd-bf19-04aba31860c0"
 };
 
 export default () => (
   <React.Fragment>
     <Profile user={user} />
 
-    <P>You don't have any jobs</P>
+    <JobsList user={user} />
 
     <Modal>
       <Modal.Toggle>
@@ -31,7 +25,7 @@ export default () => (
       </Modal.Toggle>
 
       <Modal.Body>
-        {({ closeModal }) => <JobForm onAfterLoad={closeModal} />}
+        {({ closeModal }) => <JobForm user={user} onAfterLoad={closeModal} />}
       </Modal.Body>
     </Modal>
   </React.Fragment>

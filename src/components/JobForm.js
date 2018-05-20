@@ -185,7 +185,7 @@ export default class JobForm extends React.Component {
       min_rating: 0,
       contract_duration: 3000,
       duration: 15000,
-      owner_id: "38d9f9da-85f4-40c2-9d94-5c4e715ba1f7"
+      owner_id: this.props.user.user_id
     }
   };
 }

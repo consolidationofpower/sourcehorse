@@ -18,7 +18,9 @@ const theme = {
   },
   spacing: "1rem",
   gradient:
-    "linear-gradient(90deg, rgba(68,34,84,1) 0%, rgba(132,77,143,1) 100%)"
+    "linear-gradient(90deg, rgba(68,34,84,1) 0%, rgba(132,77,143,1) 100%)",
+  shadow: "0 2px 6px 0 rgba(0, 0, 0, 0.1)",
+  shadowDark: "0 4px 8px 0 rgba(0, 0, 0, 0.6)"
 };
 
 ReactDOM.render(

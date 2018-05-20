@@ -10,7 +10,7 @@ const P = styled.p`
   color: ${props => props.theme.secondary.dark};
 `;
 
-const NoJobsMessage = () => <P>You don't have any jobs</P>;
+const NoJobsMessage = ({ children }) => <P>{children}</P>;
 
 export default class JobsList extends React.Component {
   state = {};
@@ -26,7 +26,7 @@ export default class JobsList extends React.Component {
 
   getJobs = () => {
     this.setState({ loadState: api.states.LOADING });
-    api.getUserJobs(this.props.user.user_id)
+    this.props.getJobs(this.props.user.user_id)
       .then(jobs => {
         console.log(jobs);
         this.setState({ jobs, loadState: api.states.LOADED });
@@ -41,7 +41,7 @@ export default class JobsList extends React.Component {
       return this.renderJobs();
     }
 
-    return <NoJobsMessage />;
+    return <NoJobsMessage>{this.props.noJobsMessage}</NoJobsMessage>;
   }
 
   renderJobs() {

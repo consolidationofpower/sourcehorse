@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../api";
 import Profile from "../components/Profile";
 import JobForm from "../components/JobForm";
 import JobsList from "../components/JobsList";
@@ -17,7 +18,7 @@ export default () => (
   <React.Fragment>
     <Profile user={user} />
 
-    <JobsList user={user} />
+    <JobsList user={user} getJobs={api.getUserJobs} noJobsMessage="You don't have any jobs" />
 
     <Modal>
       <Modal.Toggle>

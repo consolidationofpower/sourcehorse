@@ -75,10 +75,10 @@ const SubmitWrapper = styled.div`
 `;
 
 const initialState = {
-  title: "19th Century Feudalism",
-  description: "Pls to help",
-  reward: 21,
-  min_sources: 3
+  title: "",
+  description: "",
+  reward: 5,
+  min_sources: 1
 };
 
 export default class JobForm extends React.Component {

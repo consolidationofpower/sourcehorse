@@ -47,7 +47,7 @@ export default class Modal extends React.Component {
   static Toggle = Toggle;
   static Body = Body;
 
-  state = { modalIsOpen: false };
+  state = { modalIsOpen: true };
 
   constructor(props) {
     super(props);

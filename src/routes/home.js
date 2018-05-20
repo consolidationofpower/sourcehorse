@@ -30,7 +30,9 @@ export default () => (
         {openModal => <AddJobButton onClick={openModal} />}
       </Modal.Toggle>
 
-      <Modal.Body>{() => <JobForm />}</Modal.Body>
+      <Modal.Body>
+        {({ closeModal }) => <JobForm onAfterLoad={closeModal} />}
+      </Modal.Body>
     </Modal>
   </React.Fragment>
 );

@@ -33,6 +33,12 @@ export default {
    */
   submitSources(jobID, sources) {
     return post(`/jobs/${jobID}/sources`, sources);
+  },
+
+  states: {
+    LOADING: Symbol("LOADING"),
+    LOADED: Symbol("LOADED"),
+    ERROR: Symbol("ERROR")
   }
 }
 

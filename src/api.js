@@ -1,5 +1,3 @@
-const IS_PRODUCTION = false;
-
 export default {
   /**
    * @param {string} userId 

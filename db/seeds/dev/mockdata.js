@@ -15,8 +15,8 @@ exports.seed = async function(knex, Promise) {
       id: 'db0010b5-8b41-4ebd-bf19-04aba31860c0',
       name: 'Joe Schmoe',
       balance: 11,
-      rating: 5,
-      job_completed: 0
+      rating: 4.7,
+      job_completed: 75
     },
     {
       id: 'db0010b5-8b41-4ebd-bf19-04aba31860c1',
@@ -28,9 +28,9 @@ exports.seed = async function(knex, Promise) {
     {
       id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
       name: 'Bill Powers',
-      balance: 0,
-      rating: 3.5,
-      job_completed: 13
+      balance: 100,
+      rating: 0,
+      job_completed: 0
     },
   ]);
 
@@ -59,6 +59,39 @@ exports.seed = async function(knex, Promise) {
     },
     {
       id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
+      title: 'And Yet Another',
+      description: 'And its description',
+      owner_id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
+      duration: '3 days',
+      min_sources: 1,
+      min_rating: 2.5,
+      reward: 0.7,
+      contract_duration: '1 hours'
+    },
+    {
+      id: 'db0010b5-8b41-4ebd-bf19-04aba31860c3',
+      title: 'And Yet Another',
+      description: 'And its description',
+      owner_id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
+      duration: '3 days',
+      min_sources: 1,
+      min_rating: 2.5,
+      reward: 0.7,
+      contract_duration: '1 hours'
+    },
+    {
+      id: 'db0010b5-8b41-4ebd-bf19-04aba31860c4',
+      title: 'And Yet Another',
+      description: 'And its description',
+      owner_id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
+      duration: '3 days',
+      min_sources: 1,
+      min_rating: 2.5,
+      reward: 0.7,
+      contract_duration: '1 hours'
+    },
+    {
+      id: 'db0010b5-8b41-4ebd-bf19-04aba31860c5',
       title: 'And Yet Another',
       description: 'And its description',
       owner_id: 'db0010b5-8b41-4ebd-bf19-04aba31860c2',
